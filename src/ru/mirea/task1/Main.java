@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         //1. Вывести на экран сумму чисел массива с помощью циклов
         //for, while, do while.
-        Task1();
+        //Task1();
 
         //2. Вывести на экран аргументы командной строки в цикле for.
         //Task2(args);
@@ -22,7 +22,7 @@ public class Main {
 
         //5. Создать метод, вычисляющую факториал числа с помощью
         //цикла, проверить работу метода.
-        //Task5();
+        Task5();
     }
 
     static void Task1()

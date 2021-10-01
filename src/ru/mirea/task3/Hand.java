@@ -1,12 +1,13 @@
-package ru.mirea.task2;
+package ru.mirea.task3;
 
-public class Leg {
+public class Hand {
     int size;
     public void setSize(int num) { size=num; }
     public int getSize() { return size; }
 
-    public Leg(int sizeLeg)
+    public Hand(int sizeHand)
     {
-        size = sizeLeg;
+        size = sizeHand;
     }
 }
+
