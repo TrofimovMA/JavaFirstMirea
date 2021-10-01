@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class TestCircle {
     public void Test()
     {
+        System.out.println("Введите радиус: ");
         double r;
         Scanner sc = new Scanner(System.in);
         r = sc.nextDouble();

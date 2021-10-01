@@ -25,5 +25,4 @@ public class Book {
     public String getAuthor() { return author; }
     public int getPages() { return pages; }
     public int getYear() { return year; }
-
 }
