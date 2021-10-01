@@ -17,7 +17,7 @@ public class Human {
     public String toString()
     {
         return "{ Human : name = "+name+" ; age = " + age +" ; { Head : size = " + head.getSize() + " } ; " +
-                "{ Leg : size = "+leg.getSize()+" } ; { Leg : size = "  " }";
+                "{ Hand : size = "+hand.getSize()+" } ; { Leg : size = " + leg.getSize() +" } }";
     }
     public void setName(String str) { name=str; }
     public void setAge(int num) { age=num; }
