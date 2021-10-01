@@ -29,7 +29,7 @@ public class Ball {
         return size;
     }
     public String toString(){
-        return "{ color = "+this.color+"; size = "+this.size+"}";
+        return "{ Ball : color = "+this.color+"; size = "+this.size+"}";
     }
     public void plusOneSize(){
         size++;

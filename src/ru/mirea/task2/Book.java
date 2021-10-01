@@ -25,6 +25,6 @@ public class Book {
         return pages;
     }
     public String toString(){
-        return "{ name = "+this.name+" ; author = "+this.author+" ; pages = "+this.pages+" }";
+        return "{ Book : name = "+this.name+" ; author = "+this.author+" ; pages = "+this.pages+" }";
     }
 }
