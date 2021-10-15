@@ -4,13 +4,13 @@ public class Main {
 
     public static void main(String[] args) {
         //1. Реализуйте простейший класс «Cобака».
-        //Task1();
+        Task1();
 
         //2. Реализуйте простейший класс «Мяч».
         //Task2();
 
         //3. Реализуйте простейший класс «Книга».
-        Task3();
+        //Task3();
     }
 
     static void Task1()

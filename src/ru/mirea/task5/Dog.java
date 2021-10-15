@@ -1,5 +1,6 @@
 package ru.mirea.task5;
 
+// Примечание:
 // Labrador - лабрадор
 // Dachshund - такса
 
@@ -30,7 +31,7 @@ class Labrador extends Dog
 
     public void displayInfo()
     {
-        System.out.println("Labrador { Name: " + super.getName() + " Weight = " + weight + " }");
+        System.out.println("Labrador { Name = " + super.getName() + " ; Weight = " + weight + " }");
     }
 }
 
@@ -46,7 +47,7 @@ class Dachshund extends Dog
 
     public void displayInfo()
     {
-        System.out.println("Dachshund { Name: " + super.getName() + " ; Length = " + length + " }");
+        System.out.println("Dachshund { Name = " + super.getName() + " ; Length = " + length + " }");
     }
 }
 
