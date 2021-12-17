@@ -18,7 +18,7 @@ class frmClient extends JFrame
 
     frmClient(int id)
     {
-        super("GuildNet: Client " + id);
+        super("GuildNet: Client");
 
         setSize(300,450);
         setMinimumSize(new Dimension(300, 450));
@@ -60,5 +60,12 @@ class frmClient extends JFrame
         add(pnlInput);
 
         setVisible(true);
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                frmServer.clientDisconnect();
+            }
+        });
     }
 }
