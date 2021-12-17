@@ -9,14 +9,14 @@ public class Main {
     public static void main(String[] args) {
 
         // 1. Реализуйте Игру-Угадайку
-        new GuessingGame();
+        //new GuessingGame();
 
         // 2. Реализация приложения Java c областями
         //new Regions();
 
         // 3. Реализовать программу, которая с помощью меню,
         //может изменять шрифт и цвет текста, написанного в JTextArea
-        //new FontColorChanger();
+        new FontColorChanger();
     }
 }
 

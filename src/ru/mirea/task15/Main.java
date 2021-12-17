@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Main {
+    static String fileName = "resources/task15.txt";
 
     public static void main(String[] args) {
         // 1. Реализовать запись в файл введённой с клавиатуры информации
@@ -26,7 +27,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
-        try(FileWriter writer = new FileWriter("D:\\1.txt", false))
+        try(FileWriter writer = new FileWriter(fileName, false))
         {
             writer.write(str);
             writer.flush();
@@ -40,7 +41,7 @@ public class Main {
     {
         System.out.println("Вывод текста из файла: ");
 
-        try(FileReader reader = new  FileReader("D:\\1.txt"))
+        try(FileReader reader = new  FileReader(fileName))
         {
             int c;
             while((c=reader.read())!=-1){
@@ -58,7 +59,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
-        try(FileWriter writer = new FileWriter("D:\\1.txt", false))
+        try(FileWriter writer = new FileWriter(fileName, false))
         {
             writer.write(str);
             writer.flush();
@@ -74,7 +75,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
-        try(FileWriter writer = new FileWriter("D:\\1.txt", true))
+        try(FileWriter writer = new FileWriter(fileName, true))
         {
             writer.write(str);
             writer.flush();

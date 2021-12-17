@@ -9,13 +9,13 @@ public class Main {
 
     public static void main(String[] args) {
         // 1. Протестировать работу коллекции ArrayList.
-        Task1();
+        //Task1();
 
         // 2. Протестировать работу коллекции LinkedList.
         //Task2();
 
         // 3. Создать свою коллекцию, такую же как и ArrayList.
-        //Task3();
+        Task3();
     }
 
     static void Task1()
