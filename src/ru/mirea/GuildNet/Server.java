@@ -22,7 +22,7 @@ class frmServer extends JFrame
     static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
     JLabel lblInfo = new JLabel("INFO");
     JButton btnAddClient = new JButton("Add Client");
-    JButton btn1 = new JButton("1");
+    JButton btn1 = new JButton("Добавить user4");
     JButton btn2 = new JButton("2");
     JButton btn3 = new JButton("3");
 
@@ -43,6 +43,37 @@ class frmServer extends JFrame
                     public void actionPerformed(ActionEvent ae)
                     {
                         clientConnect(); // Добавление очередного клиента
+                    }
+                });
+        btn1.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        User newUser = new User("user4", "password4",
+                                App.FamilyStatus.Married, 10);
+                        User newUser2 = new User("user4", "password4",
+                                App.FamilyStatus.Married, 10);
+                        System.out.println(newUser.hashCode() + "   " + newUser2.hashCode());
+                        boolean alreadyFound = false;
+                        for(User u : users)
+                        {
+                            System.out.println(u.hashCode() + "   " + newUser.hashCode());
+                            if(u.hashCode() == newUser.hashCode())
+                            {
+                                alreadyFound=true;
+                                break;
+                            }
+                        }
+                        if(alreadyFound)
+                        {
+                            logMsg("WARNING: TRYING ADDING CLONE");
+                            return;
+                        }
+                        users.add(newUser);
+                        rewriteDatabase();
+                        updateDatabase();
+                        reportDatabase();
                     }
                 });
 
