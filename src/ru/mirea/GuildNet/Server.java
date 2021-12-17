@@ -81,7 +81,7 @@ class frmServer extends JFrame
 
         setVisible(true);
 
-        new frmClient();
+        //new frmClient();
     }
 
     public static ArrayList<User> updateDatabase()
