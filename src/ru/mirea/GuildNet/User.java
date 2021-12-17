@@ -15,4 +15,8 @@ public class User {
         this.login = login;
         this.password = password;
     }
+
+    public String toString(){
+        return "{ USER : login = "+this.login+" ; password = "+this.password+" }";
+    }
 }

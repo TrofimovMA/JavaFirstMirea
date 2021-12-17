@@ -8,15 +8,13 @@ import java.util.Stack;
 
 class frmClient extends JFrame
 {
-    JPanel pnlInput = new JPanel();
-    JTextField txtPlayer1 = new JTextField(12);
-    JTextField txtPlayer2 = new JTextField(12);
-    JLabel lblPlayer1 = new JLabel("Игрок 1:");
-    JLabel lblPlayer2 = new JLabel("Игрок 2:");
-    Font fnt = new Font("Times new roman",Font.BOLD,20);
-    JButton btnOK = new JButton("OK");
+    JTextField txtLogin = new JTextField("login");
+    JTextField txtPassword = new JTextField("password");
+    JLabel lblLogin = new JLabel("Login:");
+    JLabel lblPassword = new JLabel("Password:");
+    JButton btnLogin = new JButton("LOG IN");
 
-    frmClient(int id)
+    frmClient()
     {
         super("GuildNet: Client");
 
@@ -25,39 +23,39 @@ class frmClient extends JFrame
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
-        pnlInput.setBackground(Color.pink);
-        pnlInput.setLayout(new GridBagLayout());
+        // Функционал
+        btnLogin.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                       // Вход пользователя
 
-        GridBagConstraints c = new GridBagConstraints();
+                        if(frmServer.clientLogin(txtLogin.getText(), txtPassword.getText()))
+                        {
+                            //System.out.println("LOGINNED !!!");
+                        }else{
+                            //System.out.println("FAILED !!!");
+                        }
+                    }
+                });
 
-        lblPlayer1.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPlayer1.setPreferredSize(new Dimension(200, 25));
-        c.gridx = 0; c.gridy = 0;
-        c.insets = new Insets(5,5,5,5);
-        c.anchor = GridBagConstraints.PAGE_START;
-        c.fill = GridBagConstraints.BOTH;
-
-        pnlInput.add(lblPlayer1, c);
-
-        //txtPlayer1.setMaximumSize(new Dimension(Integer.MAX_VALUE, 25));
-        txtPlayer1.setHorizontalAlignment(SwingConstants.CENTER);
-        c.gridx = 0; c.gridy = 1;
-        pnlInput.add(txtPlayer1, c);
-
-        lblPlayer2.setHorizontalAlignment(SwingConstants.CENTER);
-        c.gridx = 0; c.gridy = 2;
-        pnlInput.add(lblPlayer2, c);
-
-        //txtPlayer2.setMaximumSize(new Dimension(Integer.MAX_VALUE, 25));
-        txtPlayer2.setHorizontalAlignment(SwingConstants.CENTER);
-        c.gridx = 0; c.gridy = 3;
-        pnlInput.add(txtPlayer2, c);
-
-        //c.weighty = 0.1;
-        c.gridx = 0; c.gridy = 4;
-        c.anchor = GridBagConstraints.PAGE_END;
-        pnlInput.add(btnOK, c);
-        add(pnlInput);
+        // UI
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 0.5f;
+        gbc.weighty = 0.5f;
+        gbc.gridy = 0; gbc.gridx = 0; gbc.gridwidth = 1;
+        add(lblLogin, gbc);
+        gbc.gridy = 0; gbc.gridx = 1; gbc.gridwidth = GridBagConstraints.REMAINDER;
+        add(txtLogin, gbc);
+        gbc.gridy = 1; gbc.gridx = 0; gbc.gridwidth = 1;
+        add(lblPassword, gbc);
+        gbc.gridy = 1; gbc.gridx = 1; gbc.gridwidth = GridBagConstraints.REMAINDER;
+        add(txtPassword, gbc);
+        gbc.gridy = 2; gbc.gridx = 0; gbc.gridwidth = GridBagConstraints.REMAINDER;
+        add(btnLogin, gbc);
 
         setVisible(true);
 
