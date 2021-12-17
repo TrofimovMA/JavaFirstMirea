@@ -14,10 +14,11 @@ import java.util.Stack;
 class frmServer extends JFrame
 {
     static int online = 0;
+    static ArrayList<User> users;
+
     static String database = "resources/database.txt";
     static String fieldDelimiter = ":";
     static String recordDelimiter = "::";
-    static ArrayList<User> users;
     static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
     JLabel lblInfo = new JLabel("INFO");
     JButton btnAddClient = new JButton("Add Client");
@@ -69,15 +70,10 @@ class frmServer extends JFrame
         addClient("login3", "password3");
 
         // Загрузка базы данных
-        users = updateDatabase();
+        updateDatabase();
 
         // Результат загрузки
-        String dbInfo = "";
-        for(User user : users)
-        {
-            dbInfo += "\n"+user.toString();
-        }
-        logMsg("DATABASE LOADED"+dbInfo);
+        reportDatabase();
 
         setVisible(true);
 
@@ -86,7 +82,7 @@ class frmServer extends JFrame
 
     public static ArrayList<User> updateDatabase()
     {
-        ArrayList<User> users = new ArrayList<User>();
+        users = new ArrayList<User>();
         String text = "";
         try(FileReader reader = new FileReader(database)) {
             int c;
@@ -101,6 +97,10 @@ class frmServer extends JFrame
 
         String[] records;
         String[] fields;
+        String login;
+        String password;
+        App.FamilyStatus fs;
+        int favNum;
         records = text.split(recordDelimiter);
         for (String record : records)
         {
@@ -108,11 +108,25 @@ class frmServer extends JFrame
                 continue;
 
             fields =  record.split(fieldDelimiter);
+            login = fields[0];
+            password = fields[1];
+            fs = App.FamilyStatus.valueOf(fields[2]);
+            favNum = Integer. parseInt(fields[3]);
 
-            users.add(new User(fields[0], fields[1]));
+            users.add(new User(login, password, fs, favNum));
         }
 
         return users;
+    }
+
+    public static void reportDatabase()
+    {
+        String dbInfo = "";
+        for(User user : users)
+        {
+            dbInfo += "\n"+user.toString();
+        }
+        logMsg("DATABASE REPORT"+dbInfo);
     }
 
     public static void resetDatabase()
@@ -122,17 +136,45 @@ class frmServer extends JFrame
                 writer.append("");
                 writer.flush();
             }
-            catch(IOException ex){
-
+            catch(IOException ex)
+            {
                 System.out.println(ex.getMessage());
             }
     }
 
+    public static void rewriteDatabase()
+    {
+        String text = "";
+        for(User u : users)
+        {
+            text += u.login + fieldDelimiter +
+                    u.password + fieldDelimiter +
+                    u.fs + fieldDelimiter +
+                    u.favNum +
+                    recordDelimiter;
+        }
+        try(FileWriter writer = new FileWriter(database, false))
+        {
+            writer.append(text);
+            writer.flush();
+        }
+        catch(IOException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public static void addClient(String login, String password)
     {
+        App.FamilyStatus fs = App.FamilyStatus.NONE;
+        int favNum = 0;
         try(FileWriter writer = new FileWriter(database, true))
         {
-            String text = login + fieldDelimiter + password + recordDelimiter;
+            String text = login + fieldDelimiter +
+                    password + fieldDelimiter +
+                    fs + fieldDelimiter +
+                    favNum +
+                    recordDelimiter;
             writer.append(text);
             writer.flush();
         }
@@ -142,7 +184,7 @@ class frmServer extends JFrame
         }
     }
 
-    public static boolean clientLogin(String login, String password)
+    public static int clientLogin(String login, String password)
     {
         int id=-1, c=0;
         for(User u : users)
@@ -158,18 +200,18 @@ class frmServer extends JFrame
         if(id == -1) // пользователь не найден
         {
             logMsg("Login Error : User with Login ["+login+"] not found");
-            return false;
+            return -1;
         }
 
         if(password.equals(users.get(id-1).password) == false) // пароль не верен
         {
             logMsg("Login Error : Incorrect Password on Login ["+login+"]");
-            return false;
+            return -1;
         }
 
-        logMsg("CLIENT LOGIN : ["+login+"]");
+        logMsg("CLIENT LOGIN : [ID:"+id+"] [Login:"+login+"]");
 
-        return true;
+        return id;
     }
 
     public static void clientConnect()
@@ -186,5 +228,29 @@ class frmServer extends JFrame
     public static void logMsg(String msg)
     {
         System.out.println(dateFormat.format(new Date()) + " :: " + msg);
+    }
+
+    public static void clientCmdChangeFS(int id, App.FamilyStatus fs)
+    {
+        logMsg("CLIENT CHANGED FS : [ID:"+id+"] [Login:"+users.get(id).login+"] [FS:"+fs+"]");
+        users.get(id-1).fs = fs;
+        rewriteDatabase();
+        updateDatabase();
+    }
+
+    public static void clientCmdChangeFavNum(int id, int favNum)
+    {
+        logMsg("CLIENT CHANGED FavNum : [ID:"+id+"] [Login:"+users.get(id).login+"] [FavNum:"+favNum+"]");
+        users.get(id-1).favNum = favNum;
+        rewriteDatabase();
+        updateDatabase();
+    }
+
+    public static void clientCmdChangePassword(int id, String password)
+    {
+        logMsg("CLIENT CHANGED Password : [ID:"+id+"] [Login:"+users.get(id).login+"] [Password:"+password+"]");
+        users.get(id-1).password = password;
+        rewriteDatabase();
+        updateDatabase();
     }
 }

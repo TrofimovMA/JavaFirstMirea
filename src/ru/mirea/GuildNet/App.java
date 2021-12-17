@@ -18,4 +18,13 @@ public class App
         // Запуск сервера
         server = new frmServer();
     }
+
+    public enum FamilyStatus {
+        NONE,
+        NotMarried,
+        Engaged,
+        Married
+    }
+
+    
 }
